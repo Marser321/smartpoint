@@ -1,0 +1,427 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animación shimmer para skeletons */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+/* ============================================
+   SmartPoint.uy - Sistema de Diseño Premium
+   Paleta: Smart Point Red + Pure White
+   ============================================ */
+
+:root {
+  /* Smart Point Red - Color Principal */
+  --sp-red: #C41E3A;
+  --sp-red-light: #DC2F4A;
+  --sp-red-dark: #A41830;
+  --sp-red-50: rgba(196, 30, 58, 0.05);
+  --sp-red-10: rgba(196, 30, 58, 0.1);
+  --sp-red-20: rgba(196, 30, 58, 0.2);
+  --sp-red-30: rgba(196, 30, 58, 0.3);
+
+  /* Aliases para compatibilidad (reemplazan buddha-gold) */
+  --buddha-gold: #C41E3A;
+  --buddha-gold-light: #DC2F4A;
+  --buddha-gold-dark: #A41830;
+  --buddha-gold-50: rgba(196, 30, 58, 0.05);
+  --buddha-gold-10: rgba(196, 30, 58, 0.1);
+  --buddha-gold-20: rgba(196, 30, 58, 0.2);
+  --buddha-gold-30: rgba(196, 30, 58, 0.3);
+
+  /* Fondo / Base - Modo Oscuro Premium */
+  --cod-gray: #0A0A0A;
+  --cod-gray-light: #141414;
+  --cod-gray-lighter: #1A1A1A;
+  --cod-gray-border: #2A2A2A;
+
+  /* Pure White Accent */
+  --pure-white: #FFFFFF;
+  --off-white: #F5F5F5;
+
+  /* Texto */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1A1;
+  --text-muted: #6B6B6B;
+
+  /* Estados */
+  --success: #22C55E;
+  --success-bg: rgba(34, 197, 94, 0.1);
+  --warning: #F59E0B;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --error: #EF4444;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --info: #3B82F6;
+  --info-bg: rgba(59, 130, 246, 0.1);
+
+  /* Glassmorphism - Más agresivo */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  /* Red Glow Effect */
+  --glow-red: 0 0 20px rgba(196, 30, 58, 0.3), 0 0 40px rgba(196, 30, 58, 0.15);
+  --glow-red-intense: 0 0 30px rgba(196, 30, 58, 0.5), 0 0 60px rgba(196, 30, 58, 0.25);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  background-color: var(--cod-gray);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.heading-hero {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.heading-1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.heading-2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.heading-3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body-large {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.body-base {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   Glassmorphism Components
+   ============================================ */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.glass-card-elevated {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--sp-red);
+  color: white;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    0 4px 20px rgba(196, 30, 58, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 30px var(--sp-red-30),
+    var(--glow-red),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-premium:active {
+  transform: translateY(0);
+}
+
+.btn-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text-primary);
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   Special Effects
+   ============================================ */
+.text-gradient-red {
+  background: linear-gradient(135deg, var(--sp-red) 0%, var(--sp-red-light) 50%, var(--sp-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--buddha-gold) 0%, var(--buddha-gold-light) 50%, var(--buddha-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-red {
+  box-shadow: 0 0 30px rgba(196, 30, 58, 0.2), 0 0 60px rgba(196, 30, 58, 0.1);
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px var(--buddha-gold-20), 0 0 60px var(--buddha-gold-10);
+}
+
+.border-glow-red {
+  border: 1px solid rgba(196, 30, 58, 0.3);
+  box-shadow: 0 0 20px rgba(196, 30, 58, 0.1);
+}
+
+.border-glow-gold {
+  border: 1px solid var(--buddha-gold-30);
+  box-shadow: 0 0 20px var(--buddha-gold-10);
+}
+
+/* Badge Premium */
+.badge-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--buddha-gold-10);
+  border: 1px solid var(--buddha-gold-30);
+  border-radius: 9999px;
+  color: var(--buddha-gold);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ============================================
+   Estados SAT
+   ============================================ */
+.status-recepcion {
+  background: var(--info-bg);
+  color: #60A5FA;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.status-diagnostico {
+  background: var(--warning-bg);
+  color: #FBBF24;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.status-espera-repuesto {
+  background: rgba(168, 85, 247, 0.1);
+  color: #A855F7;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.status-en-mesa {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8B5CF6;
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.status-listo {
+  background: var(--success-bg);
+  color: #4ADE80;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.status-entregado {
+  background: rgba(107, 114, 128, 0.1);
+  color: #9CA3AF;
+  border-color: rgba(107, 114, 128, 0.3);
+}
+
+.status-rechazado {
+  background: var(--error-bg);
+  color: #EF4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--buddha-gold-20);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--buddha-gold-30);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ============================================
+   Scrollbar Custom
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cod-gray-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cod-gray-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ============================================
+   Selection
+   ============================================ */
+::selection {
+  background: var(--buddha-gold-30);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   Focus Styles
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--buddha-gold);
+  outline-offset: 2px;
+}
