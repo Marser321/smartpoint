@@ -27,7 +27,11 @@ async function getProducts(category?: string): Promise<Producto[]> {
         .order('created_at', { ascending: false })
 
     if (category && category !== 'all') {
-        query = query.eq('tipo', category)
+        if (category === 'hardware') {
+            query = query.in('tipo', HARDWARE_TYPES)
+        } else {
+            query = query.eq('tipo', category)
+        }
     }
 
     const { data } = await query
@@ -51,7 +55,10 @@ const CATEGORIES = [
     { id: 'cable', label: 'Cables' },
     { id: 'auricular', label: 'Auriculares' },
     { id: 'accesorio', label: 'Accesorios' },
+    { id: 'hardware', label: 'Hardware PC' },
 ]
+
+const HARDWARE_TYPES = ['cpu', 'gpu', 'motherboard', 'ram', 'case', 'psu', 'storage', 'cooling', 'os', 'cables']
 
 export default async function TiendaPage({
     searchParams,
