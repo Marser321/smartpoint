@@ -35,7 +35,7 @@ const services = [
 
 export default function ServicesCTA() {
     return (
-        <section className="relative py-24 overflow-hidden">
+        <section className="relative py-12 md:py-24 overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-b from-[var(--cod-gray)] via-[var(--cod-gray-light)] to-[var(--cod-gray)]" />
 
@@ -47,7 +47,7 @@ export default function ServicesCTA() {
                     variants={staggerContainer}
                 >
                     {/* Header */}
-                    <motion.div variants={staggerItem} className="text-center mb-16">
+                    <motion.div variants={staggerItem} className="text-center mb-10 md:mb-16">
                         <h2 className="heading-1 mb-4">
                             ¿Qué necesitás{' '}
                             <span className="text-gradient-red">hoy</span>?

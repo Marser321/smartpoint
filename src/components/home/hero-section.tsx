@@ -16,7 +16,7 @@ const heroImages = [
 
 export default function HeroSection() {
     return (
-        <section className="relative min-h-screen flex items-center pt-32 md:pt-40 overflow-hidden bg-[var(--cod-gray)]">
+        <section className="relative min-h-screen flex items-center pt-24 md:pt-40 overflow-hidden bg-[var(--cod-gray)]">
             {/* Ambient Background */}
             <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-40 mix-blend-overlay" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--cod-gray)]/80 to-[var(--cod-gray)]" />
@@ -46,7 +46,7 @@ export default function HeroSection() {
                             </div>
                         </motion.div>
 
-                        <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
+                        <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
                             Reparamos <br />
                             <span className="text-gradient-red">lo imposible.</span>
                         </motion.h1>

@@ -234,8 +234,8 @@ export default function TicketForm() {
                                             type="button"
                                             onClick={() => updateField('marca', brand)}
                                             className={`p-3 rounded-xl text-sm font-medium transition-all ${formData.marca === brand
-                                                    ? 'bg-[var(--buddha-gold)] text-[var(--cod-gray)]'
-                                                    : 'bg-white/5 text-[var(--text-secondary)] hover:bg-white/10'
+                                                ? 'bg-[var(--buddha-gold)] text-[var(--cod-gray)]'
+                                                : 'bg-white/5 text-[var(--text-secondary)] hover:bg-white/10'
                                                 }`}
                                         >
                                             {brand}
@@ -252,7 +252,7 @@ export default function TicketForm() {
                                     value={formData.modelo}
                                     onChange={e => updateField('modelo', e.target.value)}
                                     placeholder="Ej: iPhone 13 Pro, Galaxy S23, Redmi Note 12..."
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
                                 />
                             </div>
 
@@ -264,7 +264,7 @@ export default function TicketForm() {
                                     value={formData.color}
                                     onChange={e => updateField('color', e.target.value)}
                                     placeholder="Ej: Negro, Blanco, Azul..."
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
                                 />
                             </div>
                         </div>
@@ -316,15 +316,15 @@ export default function TicketForm() {
                                             }
                                         }}
                                         className={`p-4 rounded-xl text-left transition-all ${formData.falla_id === issue.id
-                                                ? issue.id === 'mojado'
-                                                    ? 'bg-[var(--error-bg)] border-2 border-[var(--error)]'
-                                                    : 'bg-[var(--buddha-gold-10)] border-2 border-[var(--buddha-gold)]'
-                                                : 'bg-white/5 border border-white/10 hover:bg-white/10'
+                                            ? issue.id === 'mojado'
+                                                ? 'bg-[var(--error-bg)] border-2 border-[var(--error)]'
+                                                : 'bg-[var(--buddha-gold-10)] border-2 border-[var(--buddha-gold)]'
+                                            : 'bg-white/5 border border-white/10 hover:bg-white/10'
                                             }`}
                                     >
                                         <span className={`font-medium ${formData.falla_id === issue.id
-                                                ? issue.id === 'mojado' ? 'text-[var(--error)]' : 'text-[var(--buddha-gold)]'
-                                                : 'text-white'
+                                            ? issue.id === 'mojado' ? 'text-[var(--error)]' : 'text-[var(--buddha-gold)]'
+                                            : 'text-white'
                                             }`}>
                                             {issue.label}
                                         </span>
@@ -340,7 +340,7 @@ export default function TicketForm() {
                                     onChange={e => updateField('descripcion_adicional', e.target.value)}
                                     placeholder="Contanos más detalles sobre el problema..."
                                     rows={3}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors resize-none"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors resize-none"
                                 />
                             </div>
 
@@ -374,7 +374,7 @@ export default function TicketForm() {
                                     value={formData.nombre}
                                     onChange={e => updateField('nombre', e.target.value)}
                                     placeholder="Tu nombre"
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
                                 />
                             </div>
 
@@ -385,7 +385,7 @@ export default function TicketForm() {
                                     value={formData.telefono}
                                     onChange={e => updateField('telefono', e.target.value)}
                                     placeholder="099 123 456"
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
                                 />
                             </div>
 
@@ -396,7 +396,7 @@ export default function TicketForm() {
                                     value={formData.email}
                                     onChange={e => updateField('email', e.target.value)}
                                     placeholder="tu@email.com"
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--buddha-gold)] transition-colors"
                                 />
                             </div>
                         </div>

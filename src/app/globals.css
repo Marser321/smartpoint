@@ -88,6 +88,8 @@
    ============================================ */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 
 body {
@@ -103,7 +105,7 @@ body {
    Typography
    ============================================ */
 .heading-hero {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: clamp(2.5rem, 10vw, 4.5rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -136,7 +138,8 @@ body {
 }
 
 .body-base {
-  font-size: 1rem;
+  font-size: clamp(0.9375rem, 4vw, 1rem);
+  /* 15px mobile, 16px desktop */
   line-height: 1.6;
 }
 
@@ -390,6 +393,17 @@ body {
 /* ============================================
    Scrollbar Custom
    ============================================ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

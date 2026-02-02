@@ -68,9 +68,9 @@ export default function Footer() {
             </motion.div>
 
             {/* Main Footer - Glass Background */}
-            <div className="bg-[var(--cod-gray-light)] pt-20 pb-8">
+            <div className="bg-[var(--cod-gray-light)] pt-12 md:pt-20 pb-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-12">
                         {/* Brand */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}

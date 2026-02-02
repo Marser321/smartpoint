@@ -130,7 +130,7 @@ export default async function TiendaPage({
                             </div>
 
                             {/* Categories */}
-                            <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0">
+                            <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
                                 {CATEGORIES.map((cat) => {
                                     const isActive = category === cat.id || (category === '' && cat.id === 'all')
                                     return (
