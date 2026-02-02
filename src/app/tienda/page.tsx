@@ -17,34 +17,56 @@ import { DEMO_PRODUCTS } from '@/lib/demo-data'
 
 
 async function getProducts(category?: string): Promise<Producto[]> {
-    const supabase = await createClient()
+    try {
+        const supabase = await createClient()
 
-    let query = supabase
-        .from('inventario')
-        .select('*')
-        .eq('es_venta', true)
-        .eq('activo', true)
-        .order('created_at', { ascending: false })
+        let query = supabase
+            .from('inventario')
+            .select('*')
+            .eq('es_venta', true)
+            .eq('activo', true)
+            .order('created_at', { ascending: false })
 
-    if (category && category !== 'all') {
-        if (category === 'hardware') {
-            query = query.in('tipo', HARDWARE_TYPES)
-        } else {
-            query = query.eq('tipo', category)
+        if (category && category !== 'all') {
+            if (category === 'hardware') {
+                query = query.in('tipo', HARDWARE_TYPES)
+            } else {
+                query = query.eq('tipo', category)
+            }
         }
+
+        const { data, error } = await query
+
+        if (error) throw error
+
+        // Si no hay productos en DB, usar demo
+        let products = data?.length ? data as Producto[] : DEMO_PRODUCTS
+
+        // Filtrar demo data si es necesario (cuando falla DB o está vacía)
+        if (!data?.length && category && category !== 'all') {
+            if (category === 'hardware') {
+                // Demo data no tiene tipos hardware mapeados aun, pero se intentar
+                products = products.filter(p => HARDWARE_TYPES.includes(p.tipo))
+            } else {
+                products = products.filter(p => p.tipo === category)
+            }
+        }
+
+        return products
+
+    } catch (error) {
+        console.error('Error fetching products (usando fallback demo):', error)
+        // Fallback robusto para evitar pantalla de error 500
+        let fallback = DEMO_PRODUCTS
+        if (category && category !== 'all') {
+            if (category === 'hardware') {
+                // No filtrar demo por hardware si falla, para mostrar ALGO
+            } else {
+                fallback = fallback.filter(p => p.tipo === category)
+            }
+        }
+        return fallback
     }
-
-    const { data } = await query
-
-    // Si no hay productos en DB, usar demo
-    let products = data?.length ? data as Producto[] : DEMO_PRODUCTS
-
-    // Filtrar demo data si es necesario
-    if (!data?.length && category && category !== 'all') {
-        products = products.filter(p => p.tipo === category)
-    }
-
-    return products
 }
 
 const CATEGORIES = [
