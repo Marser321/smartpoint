@@ -5,6 +5,8 @@ import Providers from "@/components/providers";
 import { Toaster } from "sonner";
 import DemoBanner from "@/components/layout/DemoBanner";
 import AssistanceWidget from "@/components/ui/assistance-widget";
+import AdminQuickAccess from "@/components/ui/AdminQuickAccess";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -61,6 +63,7 @@ export default function RootLayout({
             }}
           />
           <AssistanceWidget />
+          <AdminQuickAccess />
         </Providers>
       </body>
     </html>

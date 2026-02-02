@@ -21,19 +21,21 @@ export default async function AdminLayout({
     }
 
     return (
-        <div className="flex min-h-screen bg-[var(--cod-gray)]">
-            {/* Sidebar fijo a la izquierda */}
-            <div className="w-64 flex-shrink-0 hidden md:block">
-                <Sidebar />
-            </div>
+        <div className="min-h-screen bg-[var(--cod-gray)]">
+            {/* Sidebar - incluye su propio header móvil */}
+            <Sidebar />
 
-            {/* Contenido principal con scroll y márgenes */}
-            <main className="flex-1 max-h-screen overflow-y-auto p-6 md:p-8 lg:p-12">
-                <div className="max-w-7xl mx-auto">
-                    {children}
+            {/* Contenido principal */}
+            {/* pt-16 en móvil para el header, lg:pl-72 para el sidebar en desktop */}
+            <main className="pt-16 lg:pt-0 lg:pl-72 min-h-screen">
+                <div className="p-4 md:p-6 lg:p-8 xl:p-12">
+                    <div className="max-w-7xl mx-auto">
+                        {children}
+                    </div>
                 </div>
             </main>
         </div>
     )
 }
+
 

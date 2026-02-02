@@ -10,6 +10,7 @@ import {
     TrendingUp, MessageCircle, ShoppingBag
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import AdminNotifications from './AdminNotifications'
 
 const navigation = [
     { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
@@ -143,41 +144,44 @@ export default function AdminSidebar() {
                         />
                         <span className="font-bold text-white">Smart Point</span>
                     </Link>
-                    <motion.button
-                        onClick={() => setMobileOpen(!mobileOpen)}
-                        whileTap={{ scale: 0.9 }}
-                        className="
+                    <div className="flex items-center gap-2">
+                        <AdminNotifications />
+                        <motion.button
+                            onClick={() => setMobileOpen(!mobileOpen)}
+                            whileTap={{ scale: 0.9 }}
+                            className="
                             p-2 rounded-xl 
                             bg-white/5 backdrop-blur-xl 
                             border border-white/10 
                             hover:bg-white/10 
                             transition-colors duration-300
                         "
-                    >
-                        <AnimatePresence mode="wait">
-                            {mobileOpen ? (
-                                <motion.div
-                                    key="close"
-                                    initial={{ rotate: -90, opacity: 0 }}
-                                    animate={{ rotate: 0, opacity: 1 }}
-                                    exit={{ rotate: 90, opacity: 0 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <X className="w-5 h-5 text-white" />
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    key="menu"
-                                    initial={{ rotate: 90, opacity: 0 }}
-                                    animate={{ rotate: 0, opacity: 1 }}
-                                    exit={{ rotate: -90, opacity: 0 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <Menu className="w-5 h-5 text-white" />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </motion.button>
+                        >
+                            <AnimatePresence mode="wait">
+                                {mobileOpen ? (
+                                    <motion.div
+                                        key="close"
+                                        initial={{ rotate: -90, opacity: 0 }}
+                                        animate={{ rotate: 0, opacity: 1 }}
+                                        exit={{ rotate: 90, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <X className="w-5 h-5 text-white" />
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key="menu"
+                                        initial={{ rotate: 90, opacity: 0 }}
+                                        animate={{ rotate: 0, opacity: 1 }}
+                                        exit={{ rotate: -90, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <Menu className="w-5 h-5 text-white" />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.button>
+                    </div>
                 </div>
             </div>
 
