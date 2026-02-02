@@ -16,6 +16,7 @@ import { createClient } from '@/lib/supabase/client'
 import { formatPriceUYU } from '@/lib/utils'
 import type { Producto } from '@/types/ecommerce'
 import { DEMO_PRODUCTS } from '@/lib/demo-data'
+import { PC_PARTS_MOCK } from '@/lib/pc-parts-mock' // Nuevo import
 import ProductCard from '@/components/tienda/product-card'
 
 export default function ProductDetailPage() {
@@ -32,54 +33,64 @@ export default function ProductDetailPage() {
     useEffect(() => {
         const fetchProduct = async () => {
             setLoading(true)
-            const supabase = createClient()
+            try {
+                const supabase = createClient()
+                const combinedFallback = [...DEMO_PRODUCTS, ...PC_PARTS_MOCK]
 
-            // 1. Intentar buscar en DB
-            const { data, error } = await supabase
-                .from('inventario')
-                .select('*')
-                .eq('id', params.id)
-                .single()
-
-            let currentProduct: Producto | null = null
-
-            if (data && !error) {
-                currentProduct = data as Producto
-            } else {
-                // 2. Fallback a DEMO_PRODUCTS
-                console.log('Producto no encontrado en DB, buscando en demo data')
-                const demo = DEMO_PRODUCTS.find(p => p.id === params.id)
-                if (demo) {
-                    currentProduct = demo
-                }
-            }
-
-            setProduct(currentProduct || null)
-            setLoading(false)
-
-            // 3. Buscar recomendados (misma categoría, excluyendo actual)
-            if (currentProduct) {
-                // Primero intentar DB
-                const { data: recData } = await supabase
+                // 1. Intentar buscar en DB
+                const { data, error } = await supabase
                     .from('inventario')
                     .select('*')
-                    .eq('tipo', currentProduct.tipo)
-                    .neq('id', currentProduct.id)
-                    .limit(4)
+                    .eq('id', params.id)
+                    .single()
 
-                let recs = recData ? recData as Producto[] : []
+                let currentProduct: Producto | null = null
 
-                // Si no hay suficientes en DB, rellenar con DEMO
-                if (recs.length < 4) {
-                    const demoRecs = DEMO_PRODUCTS.filter(p =>
-                        p.tipo === currentProduct?.tipo &&
-                        p.id !== currentProduct.id &&
-                        !recs.find(r => r.id === p.id)
-                    ).slice(0, 4 - recs.length)
-                    recs = [...recs, ...demoRecs]
+                if (data && !error) {
+                    currentProduct = data as Producto
+                } else {
+                    // 2. Fallback a DEMO + PC MOCK
+                    console.warn('Producto no encontrado en DB (o error), buscando en mock data:', error)
+                    const demo = combinedFallback.find(p => p.id === params.id)
+                    if (demo) {
+                        currentProduct = demo
+                    }
                 }
 
-                setRecommended(recs)
+                setProduct(currentProduct || null)
+
+                // 3. Buscar recomendados
+                if (currentProduct) {
+                    // Intentar DB
+                    const { data: recData } = await supabase
+                        .from('inventario')
+                        .select('*')
+                        .eq('tipo', currentProduct.tipo)
+                        .neq('id', currentProduct.id)
+                        .limit(4)
+
+                    let recs = recData ? recData as Producto[] : []
+
+                    // Rellenar con Mock y Demo
+                    if (recs.length < 4) {
+                        const demoRecs = combinedFallback.filter(p =>
+                            p.tipo === currentProduct?.tipo &&
+                            p.id !== currentProduct.id &&
+                            !recs.find(r => r.id === p.id)
+                        ).slice(0, 4 - recs.length)
+                        recs = [...recs, ...demoRecs]
+                    }
+                    setRecommended(recs)
+                }
+
+            } catch (error) {
+                console.error('Error crítico en fetchProduct:', error)
+                // Fallback de emergencia último recurso
+                const combinedFallback = [...DEMO_PRODUCTS, ...PC_PARTS_MOCK]
+                const demo = combinedFallback.find(p => p.id === params.id)
+                setProduct(demo || null)
+            } finally {
+                setLoading(false)
             }
         }
 
