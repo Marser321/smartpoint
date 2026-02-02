@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Check, Cpu, MonitorPlay, CircuitBoard, MemoryStick, Box, Zap, HardDrive, Wind, Laptop, ShoppingCart } from 'lucide-react'
 import { useBuild, ComponentCategory, HardwareComponent } from '../context/BuildContext'
 import { formatPriceUYU } from '@/lib/utils'
+import { getBuilderProducts } from '../actions'
 
 // Configuración de hotspots - Posiciones optimizadas para layout de components
 const HOTSPOTS = [
@@ -64,6 +65,29 @@ const MOCK_PRODUCTS: Record<ComponentCategory, HardwareComponent[]> = {
 export default function HotspotBuilder() {
     const { build, selectComponent, totalPrice } = useBuild()
     const [activeCategory, setActiveCategory] = useState<ComponentCategory | null>(null)
+    const [products, setProducts] = useState<Record<ComponentCategory, HardwareComponent[]> | null>(null)
+    const [isLoading, setIsLoading] = useState(true)
+
+    // Cargar productos de Supabase
+    useEffect(() => {
+        async function loadData() {
+            try {
+                const dbProducts = await getBuilderProducts()
+                if (dbProducts && Object.keys(dbProducts).length > 0) {
+                    setProducts(dbProducts)
+                } else {
+                    console.warn('Usando Mock Data (DB vacía o error)')
+                    setProducts(MOCK_PRODUCTS)
+                }
+            } catch (error) {
+                console.error('Error loading products:', error)
+                setProducts(MOCK_PRODUCTS)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        loadData()
+    }, [])
 
     const handleHotspotClick = (category: ComponentCategory) => {
         setActiveCategory(category)
@@ -77,10 +101,22 @@ export default function HotspotBuilder() {
     const closeDrawer = () => setActiveCategory(null)
 
     const activeHotspot = HOTSPOTS.find(h => h.id === activeCategory)
-    const activeProducts = activeCategory ? MOCK_PRODUCTS[activeCategory] : []
+    // Usar productos cargados o array vacío
+    const activeProducts = (products && activeCategory) ? products[activeCategory] || [] : []
 
     // Contar componentes seleccionados
     const selectedCount = Object.values(build).filter(Boolean).length
+
+    if (isLoading) {
+        return (
+            <div className="w-full aspect-[16/9] bg-[#0a0a0a] rounded-3xl flex items-center justify-center border border-white/10">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-[#C4B001] border-t-transparent rounded-full animate-spin" />
+                    <p className="text-white/50 text-sm animate-pulse">Cargando componentes...</p>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="relative w-full rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a]">
